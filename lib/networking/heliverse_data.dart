@@ -4,9 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 // import 'package:http/http.dart' as http;
 
-class NetworkHelper extends ChangeNotifier {
+class HeliverseData extends ChangeNotifier {
   List empData = [];
-  List teamData = [];
+  List teamMembersData = [];
 
   Future<void> fetchData() async {
     //IF DATA WAS COMING FROM HELIVERSE API
@@ -62,10 +62,12 @@ class NetworkHelper extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addToTeamList({required dynamic empInfo}) {
-    teamData.add(empInfo);
+  bool addToTeamList({required dynamic empInfo}) {
+    teamMembersData.add(empInfo);
+    notifyListeners();
+    return false;
   }
 
   List get getEmpData => empData;
-  List get getTeamData => teamData;
+  List get getTeamData => teamMembersData;
 }

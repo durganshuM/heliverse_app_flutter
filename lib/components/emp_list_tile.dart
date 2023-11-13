@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class CardTile extends StatelessWidget {
-  const CardTile({
+class EmpListTile extends StatelessWidget {
+  const EmpListTile({
     super.key,
     required this.id,
     required this.firstName,

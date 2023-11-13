@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:heliverse_app_flutter/networking/network_helper.dart';
+import 'package:heliverse_app_flutter/networking/heliverse_data.dart';
 import 'package:provider/provider.dart';
+
+import '../components/teams_card.dart';
 
 class TeamsScreen extends StatelessWidget {
   const TeamsScreen({super.key});
@@ -8,7 +10,7 @@ class TeamsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<String> teamCategories = [];
-    for (var emp in Provider.of<NetworkHelper>(context).getEmpData) {
+    for (var emp in Provider.of<HeliverseData>(context).getEmpData) {
       teamCategories.add(emp['domain']);
     }
     teamCategories = teamCategories.toSet().toList();
@@ -35,34 +37,6 @@ class TeamsScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.center,
             children: teamList,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class TeamCard extends StatelessWidget {
-  const TeamCard({
-    super.key,
-    required this.teamTitle,
-  });
-
-  final String teamTitle;
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
-        child: GestureDetector(
-          onTap: () {
-            //
-          },
-          child: Card(
-            child: Center(
-              child: Text(teamTitle),
-            ),
           ),
         ),
       ),

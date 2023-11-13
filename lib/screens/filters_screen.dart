@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:heliverse_app_flutter/networking/network_helper.dart';
+import 'package:heliverse_app_flutter/networking/heliverse_data.dart';
 import 'package:provider/provider.dart';
 
 class FiltersScreen extends StatefulWidget {
@@ -12,7 +12,7 @@ class FiltersScreen extends StatefulWidget {
 class _FiltersScreenState extends State<FiltersScreen> {
   @override
   Widget build(BuildContext context) {
-    var empData = Provider.of<NetworkHelper>(context).getEmpData;
+    var empData = Provider.of<HeliverseData>(context).getEmpData;
     List<String> domains = [];
     List<String> genders = [];
     List<String> available = [];
@@ -106,7 +106,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                 backgroundColor: Colors.lightBlueAccent,
               ),
               onPressed: () {
-                Provider.of<NetworkHelper>(context, listen: false)
+                Provider.of<HeliverseData>(context, listen: false)
                     .applyFilterOnList(
                         domain: selectedDomain,
                         gender: selectedGender,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:heliverse_app_flutter/components/card_list.dart';
-import 'package:heliverse_app_flutter/networking/network_helper.dart';
+import 'package:heliverse_app_flutter/components/emp_card_list.dart';
+import 'package:heliverse_app_flutter/networking/heliverse_data.dart';
 import 'package:heliverse_app_flutter/screens/filters_screen.dart';
 import 'package:heliverse_app_flutter/screens/teams_screen.dart';
 import 'package:provider/provider.dart';
@@ -21,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Provider.of<NetworkHelper>(context, listen: false).fetchData();
+      Provider.of<HeliverseData>(context, listen: false).fetchData();
     });
   }
 
@@ -57,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           IconButton(
               onPressed: () async {
-                await Provider.of<NetworkHelper>(context, listen: false)
+                await Provider.of<HeliverseData>(context, listen: false)
                     .fetchData();
                 setState(() {
                   showData = true;
@@ -92,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: ElevatedButton(
                       onPressed: () {
                         if (searchText != '') {
-                          Provider.of<NetworkHelper>(context, listen: false)
+                          Provider.of<HeliverseData>(context, listen: false)
                               .getSearchedList(searchedName: searchText);
                         }
                       },
@@ -108,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Expanded(
               flex: 2,
               child: showData
-                  ? const CardList()
+                  ? const EmpCardList()
                   : const Center(
                       child: Text('Press Refresh Button'),
                     ),

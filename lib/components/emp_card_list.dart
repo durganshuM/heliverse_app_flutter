@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:heliverse_app_flutter/components/emp_card_tile.dart';
-import 'package:heliverse_app_flutter/networking/network_helper.dart';
+import 'package:heliverse_app_flutter/networking/heliverse_data.dart';
 import 'package:provider/provider.dart';
 
-class CardList extends StatefulWidget {
-  const CardList({super.key});
+import 'emp_list_tile.dart';
+
+class EmpCardList extends StatefulWidget {
+  const EmpCardList({super.key});
 
   @override
-  State<CardList> createState() => _CardListState();
+  State<EmpCardList> createState() => _EmpCardListState();
 }
 
-class _CardListState extends State<CardList> {
+class _EmpCardListState extends State<EmpCardList> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<NetworkHelper>(builder: (context, networkHelper, child) {
+    return Consumer<HeliverseData>(builder: (context, heliverseData, child) {
       return ListView.builder(
         // itemCount: 10,
         itemBuilder: (BuildContext context, int index) {
-          final cardData = networkHelper.getEmpData[index];
-          return CardTile(
+          final cardData = heliverseData.getEmpData[index];
+          return EmpListTile(
             id: cardData['id'],
             firstName: cardData['first_name'],
             lastName: cardData['last_name'],
@@ -28,7 +29,10 @@ class _CardListState extends State<CardList> {
             domain: cardData['domain'],
             available: cardData['available'],
             onAddToTeamPress: () {
-              networkHelper.addToTeamList(empInfo: cardData);
+              setState(() {
+                cardData['available'] =
+                    heliverseData.addToTeamList(empInfo: cardData);
+              });
             },
           );
         },
