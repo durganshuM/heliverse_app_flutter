@@ -11,6 +11,7 @@ class CardTile extends StatelessWidget {
     required this.avatarURL,
     required this.domain,
     required this.available,
+    required this.onAddToTeamPress,
   });
 
   final int id;
@@ -21,10 +22,17 @@ class CardTile extends StatelessWidget {
   final String avatarURL;
   final String domain;
   final bool available;
+  final VoidCallback onAddToTeamPress;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      shape: const Border.symmetric(
+        horizontal: BorderSide(
+          width: 1.0,
+          color: Color(0xff424242),
+        ),
+      ),
       title: Text('$firstName $lastName'),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,10 +49,27 @@ class CardTile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CircleAvatar(
-            radius: 5.0,
-            backgroundColor: available ? Colors.green : Colors.red,
-          ),
+          available
+              ? GestureDetector(
+                  onTap: onAddToTeamPress,
+                  child: const Text(
+                    'Add to Team',
+                    style: TextStyle(color: Colors.blue),
+                  ),
+                )
+              : const CircleAvatar(
+                  backgroundColor: Colors.red,
+                  radius: 5.0,
+                ),
+          // available
+          //     ? TextButton(
+          //         onPressed: onAddToTeamPress,
+          //         child: const Text('Add to Team'),
+          //       )
+          //     : const SizedBox(
+          //         width: 0,
+          //         height: 0,
+          //       ),
           const SizedBox(
             height: 5.0,
           ),

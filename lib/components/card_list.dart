@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:heliverse_app_flutter/components/card_tile.dart';
+import 'package:heliverse_app_flutter/components/emp_card_tile.dart';
 import 'package:heliverse_app_flutter/networking/network_helper.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +17,7 @@ class _CardListState extends State<CardList> {
       return ListView.builder(
         // itemCount: 10,
         itemBuilder: (BuildContext context, int index) {
-          final cardData = networkHelper.getDecodedData[index];
+          final cardData = networkHelper.getEmpData[index];
           return CardTile(
             id: cardData['id'],
             firstName: cardData['first_name'],
@@ -27,6 +27,9 @@ class _CardListState extends State<CardList> {
             avatarURL: cardData['avatar'],
             domain: cardData['domain'],
             available: cardData['available'],
+            onAddToTeamPress: () {
+              networkHelper.addToTeamList(empInfo: cardData);
+            },
           );
         },
       );

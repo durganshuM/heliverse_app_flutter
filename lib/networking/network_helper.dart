@@ -5,7 +5,8 @@ import 'package:flutter/services.dart';
 // import 'package:http/http.dart' as http;
 
 class NetworkHelper extends ChangeNotifier {
-  List decodedData = [];
+  List empData = [];
+  List teamData = [];
 
   Future<void> fetchData() async {
     //IF DATA WAS COMING FROM HELIVERSE API
@@ -14,10 +15,11 @@ class NetworkHelper extends ChangeNotifier {
 
     final String data = await rootBundle.loadString('assets/sample_data.json');
     try {
-      decodedData = jsonDecode(data);
+      empData = jsonDecode(data);
     } catch (e) {
       print(e);
     }
+
     notifyListeners();
   }
 
@@ -25,7 +27,7 @@ class NetworkHelper extends ChangeNotifier {
     await fetchData();
     List searchedList = [];
     if (searchedName != '') {
-      for (var employees in decodedData) {
+      for (var employees in empData) {
         if (searchedName.toLowerCase() ==
                 employees['first_name'].toString().toLowerCase() ||
             searchedName == employees['last_name'].toString().toLowerCase() ||
@@ -36,7 +38,7 @@ class NetworkHelper extends ChangeNotifier {
           searchedList.add(employees);
         }
       }
-      decodedData = searchedList;
+      empData = searchedList;
     } else {
       await fetchData();
     }
@@ -49,16 +51,21 @@ class NetworkHelper extends ChangeNotifier {
       required String available}) async {
     await fetchData();
     List filteredList = [];
-    for (var emp in decodedData) {
+    for (var emp in empData) {
       if (domain == emp['domain'] ||
           gender == emp['gender'] ||
           available == emp['available']) {
         filteredList.add(emp);
       }
     }
-    decodedData = filteredList;
+    empData = filteredList;
     notifyListeners();
   }
 
-  List get getDecodedData => decodedData;
+  void addToTeamList({required dynamic empInfo}) {
+    teamData.add(empInfo);
+  }
+
+  List get getEmpData => empData;
+  List get getTeamData => teamData;
 }

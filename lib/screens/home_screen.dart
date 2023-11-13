@@ -69,33 +69,40 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: SafeArea(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: TextField(
-                onChanged: (searchValue) {
-                  searchText = searchValue;
-                },
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.search),
-                  filled: true,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  if (searchText != '') {
-                    Provider.of<NetworkHelper>(context, listen: false)
-                        .getSearchedList(searchedName: searchText);
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.lightBlueAccent,
-                ),
-                child: const Text('Search'),
+            Container(
+              color: const Color(0xff424242),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: TextField(
+                      onChanged: (searchValue) {
+                        searchText = searchValue;
+                      },
+                      decoration: const InputDecoration(
+                        icon: Icon(Icons.search),
+                        filled: true,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (searchText != '') {
+                          Provider.of<NetworkHelper>(context, listen: false)
+                              .getSearchedList(searchedName: searchText);
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.lightBlueAccent,
+                      ),
+                      child: const Text('Search'),
+                    ),
+                  ),
+                ],
               ),
             ),
             Expanded(
@@ -127,16 +134,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       //
                     },
                     icon: const Icon(Icons.navigate_before),
-                  ),
-                  FloatingActionButton(
-                    backgroundColor: Colors.lightBlueAccent,
-                    child: const Icon(
-                      Icons.add,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      //on pressed
-                    },
                   ),
                   IconButton(
                     onPressed: () {

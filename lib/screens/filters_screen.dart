@@ -12,7 +12,7 @@ class FiltersScreen extends StatefulWidget {
 class _FiltersScreenState extends State<FiltersScreen> {
   @override
   Widget build(BuildContext context) {
-    var empData = Provider.of<NetworkHelper>(context).getDecodedData;
+    var empData = Provider.of<NetworkHelper>(context).getEmpData;
     List<String> domains = [];
     List<String> genders = [];
     List<String> available = [];
