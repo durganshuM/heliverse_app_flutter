@@ -16,9 +16,10 @@ class _EmpCardListState extends State<EmpCardList> {
   Widget build(BuildContext context) {
     return Consumer<HeliverseData>(builder: (context, heliverseData, child) {
       return ListView.builder(
-        // itemCount: 10,
+        itemCount: heliverseData.getEmpData.length,
         itemBuilder: (BuildContext context, int index) {
           final cardData = heliverseData.getEmpData[index];
+
           return EmpListTile(
             id: cardData['id'],
             firstName: cardData['first_name'],

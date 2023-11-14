@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:heliverse_app_flutter/components/emp_card_list.dart';
+import 'package:heliverse_app_flutter/components/emp_cards_list.dart';
 import 'package:heliverse_app_flutter/networking/heliverse_data.dart';
 import 'package:heliverse_app_flutter/screens/filters_screen.dart';
 import 'package:heliverse_app_flutter/screens/teams_screen.dart';

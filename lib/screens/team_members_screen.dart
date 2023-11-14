@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:heliverse_app_flutter/components/team_mem_card_list.dart';
+import 'package:heliverse_app_flutter/components/team_cards_list.dart';
 
 class TeamMembersScreen extends StatelessWidget {
   const TeamMembersScreen({
