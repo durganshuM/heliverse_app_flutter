@@ -5,7 +5,13 @@ import 'package:provider/provider.dart';
 import 'emp_list_tile.dart';
 
 class EmpCardList extends StatefulWidget {
-  const EmpCardList({super.key});
+  const EmpCardList({
+    super.key,
+    required this.minIndex,
+    required this.maxIndex,
+  });
+  final int minIndex;
+  final int maxIndex;
 
   @override
   State<EmpCardList> createState() => _EmpCardListState();
@@ -15,10 +21,14 @@ class _EmpCardListState extends State<EmpCardList> {
   @override
   Widget build(BuildContext context) {
     return Consumer<HeliverseData>(builder: (context, heliverseData, child) {
+      List indexedList = [];
+      for (int i = widget.minIndex; i <= widget.maxIndex; i++) {
+        indexedList.add(heliverseData.getEmpData[i]);
+      }
       return ListView.builder(
-        itemCount: heliverseData.getEmpData.length,
+        itemCount: indexedList.length,
         itemBuilder: (BuildContext context, int index) {
-          final cardData = heliverseData.getEmpData[index];
+          final cardData = indexedList[index];
 
           return EmpListTile(
             id: cardData['id'],

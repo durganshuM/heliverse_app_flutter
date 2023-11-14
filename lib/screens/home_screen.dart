@@ -14,6 +14,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool showData = false;
+  int minIndex = 0;
+  int maxIndex = 9;
 
   String searchText = '';
 
@@ -108,7 +110,10 @@ class _HomeScreenState extends State<HomeScreen> {
             Expanded(
               flex: 2,
               child: showData
-                  ? const EmpCardList()
+                  ? EmpCardList(
+                      minIndex: minIndex,
+                      maxIndex: maxIndex,
+                    )
                   : const Center(
                       child: Text('Press Refresh Button'),
                     ),
@@ -131,13 +136,23 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   IconButton(
                     onPressed: () {
-                      //
+                      setState(() {
+                        if (minIndex != 0) {
+                          minIndex = minIndex - 10;
+                          maxIndex = maxIndex - 10;
+                        }
+                      });
                     },
                     icon: const Icon(Icons.navigate_before),
                   ),
                   IconButton(
                     onPressed: () {
-                      //
+                      setState(() {
+                        if (maxIndex != 999) {
+                          minIndex = minIndex + 10;
+                          maxIndex = maxIndex + 10;
+                        }
+                      });
                     },
                     icon: const Icon(Icons.navigate_next),
                   ),
