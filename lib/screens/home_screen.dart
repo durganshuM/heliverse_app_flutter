@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:heliverse_app_flutter/components/emp_cards_list.dart';
 import 'package:heliverse_app_flutter/networking/heliverse_data.dart';
 import 'package:heliverse_app_flutter/screens/filters_screen.dart';
+import 'package:heliverse_app_flutter/screens/search_screen.dart';
 import 'package:heliverse_app_flutter/screens/teams_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -16,8 +17,6 @@ class _HomeScreenState extends State<HomeScreen> {
   bool showData = false;
   int minIndex = 0;
   int maxIndex = 9;
-
-  String searchText = '';
 
   @override
   void initState() {
@@ -36,10 +35,12 @@ class _HomeScreenState extends State<HomeScreen> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const TeamsScreen()),
+                MaterialPageRoute(
+                  builder: (context) => const SearchScreen(),
+                ),
               );
             },
-            icon: const Icon(Icons.people),
+            icon: const Icon(Icons.search),
           ),
           IconButton(
             onPressed: () {
@@ -58,6 +59,15 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: const Icon(Icons.filter_alt),
           ),
           IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const TeamsScreen()),
+              );
+            },
+            icon: const Icon(Icons.people),
+          ),
+          IconButton(
               onPressed: () async {
                 await Provider.of<HeliverseData>(context, listen: false)
                     .fetchData();
@@ -72,41 +82,6 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            Container(
-              color: const Color(0xff424242),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: TextField(
-                      onChanged: (searchValue) {
-                        searchText = searchValue;
-                      },
-                      decoration: const InputDecoration(
-                        icon: Icon(Icons.search),
-                        filled: true,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        if (searchText != '') {
-                          Provider.of<HeliverseData>(context, listen: false)
-                              .getSearchedList(searchedName: searchText);
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.lightBlueAccent,
-                      ),
-                      child: const Text('Search'),
-                    ),
-                  ),
-                ],
-              ),
-            ),
             Expanded(
               flex: 2,
               child: showData
@@ -148,7 +123,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   IconButton(
                     onPressed: () {
                       setState(() {
-                        if (maxIndex != 999) {
+                        if (maxIndex !=
+                            Provider.of<HeliverseData>(context, listen: false)
+                                    .getEmpData
+                                    .length -
+                                1) {
                           minIndex = minIndex + 10;
                           maxIndex = maxIndex + 10;
                         }

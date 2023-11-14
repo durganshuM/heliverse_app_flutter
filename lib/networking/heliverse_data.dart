@@ -23,9 +23,9 @@ class HeliverseData extends ChangeNotifier {
     notifyListeners();
   }
 
-  void getSearchedList({required String searchedName}) async {
-    await fetchData();
+  List getSearchedList({required String searchedName}) {
     List searchedList = [];
+
     if (searchedName != '') {
       for (var employees in empData) {
         if (searchedName.toLowerCase() ==
@@ -38,11 +38,10 @@ class HeliverseData extends ChangeNotifier {
           searchedList.add(employees);
         }
       }
-      empData = searchedList;
-    } else {
-      await fetchData();
     }
+
     notifyListeners();
+    return searchedList;
   }
 
   void applyFilterOnList(
